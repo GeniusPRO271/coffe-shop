@@ -1,95 +1,51 @@
 import Image from 'next/image'
 import styles from './page.module.css'
+import bannerImageMain from "../assets/bannerImageMain.png"
+import textBanner from "../assets/textBanner.svg"
+import MenuImage from "../assets/Menu.svg"
+import NavBar from '@/components/navBar'
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+     <NavBar/>
+     <main className={styles.main}>
+      <div className={styles.contentContainer}>
+        <div className={styles.rightSideContainer}>
+                <Image src={bannerImageMain} width={1070} height={363} alt="bannerImageMain"/> 
+                <div className={styles.textBannerContainer}>
+                  <div className={styles.textTitle}>
+                    ¡PIDE <span style={{color: "#1EE3E4"}}>FILOMENA</span> <br/> CAFÉ!
+                    <Image src={textBanner} alt='textBanner' width= {667} height={151} style={{paddingLeft:"50px", position: "absolute"}}/>
+                  </div>
+                  <div className={styles.textDescription}>
+                    Sumérgete en una experiencia inigualable de sabor y aroma en nuestra tienda de café. Descubre una cuidadosa selección de granos de café de origen único
+                  </div>
+                  <div className={styles.buttonsContainer}>
+                    <button className={styles.deliveryButton}> Delivery</button>
+                    <button className={styles.takeButton}> Para retirar </button>
+                  </div>
+                </div>
+        </div>
+        <div className={styles.leftSideContainer}>
+            <div className={styles.menuContainer}>
+              
+              <div className={styles.textMenu}>
+                ¡Descubre un mundo de sabores!.
+                En nuestro menú de café y deleites culinarios.
+              </div>
+              
+              <div className={styles.menuBottomRow}>
+                <div className={styles.textMore}>
+                  Nuestro Menu
+                </div>
+                <Image src={MenuImage} alt='MenuImage' width= {343} height={144} className={styles.MenuImage}/>
+              </div>
+            </div>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
     </main>
+    </>
+
   )
 }

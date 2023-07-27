@@ -1,0 +1,385 @@
+
+
+.shopContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding-top: 120px;
+
+
+}
+.categoriesLayout{
+    position: fixed;
+  
+}
+.categoriesContainer{
+    width: 144px;
+    height: 267px;
+    padding-top: 20px;
+    padding-right: 40px;
+}
+.categoriesTextTitle{
+    color: #000;
+    font-family: "Bree Serif";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    height: 39px;
+    line-height: normal;
+    padding-left: 15px;
+}
+.categoriesTextContainer{
+    min-width:  144px;
+    height: 39px;
+    display: flex;
+    line-height: normal;
+    margin-top: 10px;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    color: white;
+}
+.categoriesText{
+    font-family: "Bree Serif";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    padding-left: 10px;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    background-color: transparent;
+
+}
+.productsContainer{
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20px;
+}
+.productGrid{
+    background-color: white;
+    display: grid;
+    margin-top: 20px;
+    grid-template-columns: repeat(5, 217px);
+    gap: 25px;
+}
+
+.cartLayout{
+    width: 320px;
+    height: 100%;
+    padding-top: 20px;
+}
+.CartTop{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 21px 23px;
+}
+.cartTitle{
+    color: #000;
+    width: 70%;
+    font-family: "Bree Serif";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.cartClearButton{
+    color: #7b7b7b;
+    font-family: "Bree Serif";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.cartClearButton:active{
+    color: #000;
+}
+.cartEmptyContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 80%;
+}
+.cartEmpty{
+    width: 180px;
+    height: 278px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex: 1;
+}
+.cartEmpyText{
+    padding-top: 50px;
+    color: #000;
+    text-align: center;
+    font-family: Bree Serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 180px;
+    height: 94.742px;
+}
+
+.cartNotEmpyContainer{
+    margin: 0px 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex: 5;
+}
+.cartNotEmptyDeliverySelection{
+    background: #F5F4F2;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 296px;
+    height: 56px;
+}
+
+.cartNotEmptyDeliveryOption1{
+    background-color: transparent;
+    border: 0px;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 40px;
+    border-radius: 15px;
+    color: #21201F;
+    font-family: "Bree Serif";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.cartNotEmptyDeliveryOption2{
+    z-index: 2;
+    background-color: transparent;
+    border: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 40px;
+    border-radius: 15px;
+    color: #21201F;
+    font-family: "Bree Serif";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.cartNotEmptyToggle{
+    position: absolute;
+    z-index: 0;
+    width: 140px;
+    height: 40px;
+    background-color: #1EE3E4;
+    border-radius: 15px;
+    transition: all 0.2s ease;
+}
+
+.cartNotEmptyIteams{
+    padding-top: 20px;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+.cartNotEmptyIteam{
+    padding-bottom: 14px;
+    display: flex;
+    height: 69px;
+
+}
+.cartNotEmptyImage{
+    border-radius: 15px;
+}
+.cartNotEmptyText{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    height: 100%;
+    color: #21201F;
+    font-family: "Bree Serif";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 9px;
+    overflow: hidden;
+}
+
+.cartNotEmptyCartLayout{
+    height: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.cartNotEmptyCartContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 32px;
+    border-radius: 20px;
+    background: #F5F4F2;
+}
+.cartNotEmptyButton{
+    border: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    width: 100%;
+    color: #000;
+    font-family: "Bree Serif";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.cartContainer{
+    position:fixed;
+    height: 100%;
+    width: 320px;
+    border-radius: 20px;
+    margin-left: 40px;
+    background: #EDFDFD;
+    display: flex;
+    flex-direction: column;
+}
+.productCardContinaer{
+    width: 199px;
+    height: 340px;
+    background-color: rgba(30, 227, 228, 0.08);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 9px;
+}
+.productCardImageContainer{
+    width: 100%;
+    height: 168px;
+    border-radius: 24px;
+}
+.productImage{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 24px;
+}
+.productCardText{
+    width: 100%;
+    height: 90px;
+    padding-top: 9px;
+}
+.productCardPriceTag{
+    color: #FF7373;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.productCardName{
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.productCardButtonContainer{
+    width: 100%;
+    height: 49px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    flex: 1;
+
+}
+.productCardAddButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 49px;
+    border-radius: 16px;
+    border: 0px;
+    background: #1BBABB;
+    color: #FFF;
+    font-family: "Bree Serif";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+
+}
+.bannersContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bannerContainer{
+    width: 580px;
+    height: 213px;
+    border-radius: 30px;
+    margin: 0px 14px;
+    flex: 1;
+}
+.cartBottom{
+    margin: 0px 12px;
+    flex: auto;
+}
+.cartCheckOutContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 54px;
+}
+.cartCheckOutButton{
+    border: 0px;
+    border-radius: 15px;
+    background: #1BBABB;
+    height: 54px;
+    width: 296px;
+    color: #FFF;
+    font-family:"Bree Serif";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: left;
+    padding-left: 15px;
+}
+.cartOptionFeeContainer{
+    height: 48px;
+    width: 298px;
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+}
+.cartFeeCarryOutContainer{
+    font-family: "Bree Serif";
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    line-height: 15px;
+    padding-left: 7px;
+}
