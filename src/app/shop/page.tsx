@@ -16,13 +16,17 @@ import Cart from '@/components/cartMenu'
 function Shop() {
   const [products, setProducts] = useState<Product[]>([])
 
+      // TEST WHILE BACKEND UPDATE
   useEffect(() => {
+
     const getProducts = async (): Promise<Product[]> => {
       const {data} = await axios.get<Product[]>('https://fakestoreapi.com/products')
       return data
     }
     getProducts().then(r => setProducts(r))
+    
   },[])
+    // TEST WHILE BACKEND UPDATE
 
   return (
     <>
