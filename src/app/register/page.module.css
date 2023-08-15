@@ -1,14 +1,21 @@
 @font-face {
-    font-family: "Bree Serif";
-    src: url("../../assets/fonts/Bree_Serif/BreeSerif-Regular.ttf");
+    font-family: "Product Sans";
+    src: url("../../assets/fonts/product-sans/Product\ Sans\ Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
   }
-
+  @font-face {
+    font-family: "Product Sans";
+    src: url("../../assets/fonts/product-sans/Product\ Sans\ Bold.ttf");
+    font-weight: bold;
+    font-style: bold;
+  }
 .registerContainer{
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: "Bree Serif";
+    font-family: "Product Sans";
 }
 .rightSideContainer{
     background-color: #1BBABB;
@@ -38,18 +45,18 @@
     width: 691px;
     height: 202px;
     color: #FFF;
-    font-family: "Bree Serif";
+    font-family: "Product Sans";
     font-size: 80px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font-style: bold;
+    font-weight: bold;
+    line-height: bold;
 }
 .subTitleLogin{
     padding-top: 58px;
     width: 691px;
     height: 152px;
     color: #FFF;
-    font-family: "Bree Serif";
+    font-family: "Product Sans";
     font-size: 50px;
     font-style: normal;
     font-weight: 400;
@@ -60,10 +67,10 @@
     height: 65px;
     flex-shrink: 0;
     color: #000;
-    font-family: Bree Serif;
+    font-family: "Product Sans";
     font-size: 50px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: bold;
     line-height: normal;
 }
 .registerForm{
@@ -82,7 +89,7 @@
     border: 1px solid rgba(0, 0, 0, 0.50);
     background: #FFF;
     color: rgba(0, 0, 0, 0.50);
-    font-family: "Bree Serif";
+    font-family: "Product Sans";
     font-size: 25px;
     font-style: normal;
     font-weight: 400;
@@ -101,7 +108,7 @@
     border-radius: 20px;
     background: #1BBABB;
     color: #FFF;
-    font-family: Bree Serif;
+    font-family: "Product Sans";
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -110,7 +117,7 @@
 }
 .forgotStyle{
     color: #1BBABB;
-    font-family: Bree Serif;
+    font-family: "Product Sans";
     font-size: 20px;
     font-style: normal;
     font-weight: 400;

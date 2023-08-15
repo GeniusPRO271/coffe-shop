@@ -1,0 +1,418 @@
+.navBarContainer{
+    height: 90px;
+    width: 100%;
+    background: #1BBABB;
+    position: fixed;
+    
+}
+.navBarLayout{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 0px 31px;
+}
+.navBarBackButtonContainer{
+    width: 10%;
+}
+.navBarBackButton{
+    background-color: transparent;
+    color: #F5F5F5;
+    font-family: "Product Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+}
+.navBarLogoContainer{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navBarLogoLayout{
+    width: fit-content;
+}
+
+.checkOutContainer{
+    width: 100%;
+    padding-top: 110px;
+    display: flex;
+    justify-content: center;
+    
+}
+.checkOutLayout{
+    width: 80%;
+    display: flex;
+}
+.checkOutLeftColumnContainer{
+    width: 50%;
+    padding-top: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+.checkOutLeftColumnTitle{
+    color: #000;
+    font-family: "Product Sans";
+    font-size: 50px;
+    width: 100%;
+    max-width: 600px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+    text-align: start;
+}
+.checkOutLeftColumnTermsContainer{
+    margin-top: 21px;
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+    height: 412px;
+    flex-shrink: 0;
+    border-radius: 32px;
+    background: #EDFDFD;
+}
+.checkOutLeftColumnTermsLayout{
+    width: 100%;
+    height: 100%;
+    padding: 39px 36px;
+}
+.checkOutLeftColumnTermsTitle{
+    color: #000;
+    font-family: "Product Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+}
+.checkOutLeftColumnTermsOptions{   
+    padding-top: 10px;
+}
+.checkOutLeftColumnTermsDeliveryOptions{
+    display: flex;
+
+}
+.checkOutLeftColumnTermsDeliveryOptionsContainer{
+    color: #000;
+    font-family:"Product Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 5px 8px;
+    border-radius: 15px;
+    border: 0px;
+    text-align: start;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    margin-right: 12px;
+
+}
+
+.checkOutLeftColumnTermsDeliveryOptionsContainerPrice{
+    color: #D9D9D9;
+}
+.checkOutLeftColumnTermsDeliveryOptionsContainer:hover .checkOutLeftColumnTermsDeliveryOptionsContainerPrice{
+    color: black;
+}
+.checkOutLeftColumnTermsDeliveryOptionsContainer:hover {
+    background-color: rgba(92, 90, 87, 0.10);
+}
+.checkOutLeftColumnAddressContainer{
+    width: 100%;
+    padding-top: 12px;
+}
+.checkOutLeftColumnAddressButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 0px;
+    color: #000;
+    font-family: "Product Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 0px;
+    margin-left: -5px;
+    padding: 5px 5px;
+    border-radius: 10px;
+
+}
+.checkOutLeftColumnAddressButton:hover{
+    background-color: rgba(92, 90, 87, 0.10);
+}
+.checkOutLeftColumnAddressButtonArrow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 6px;
+    width: 20px;
+    height: 20px;
+}
+.checkOutLeftColumnAddressButtonPopUpContainer{
+    position: absolute;
+    display: flex;
+    z-index: 100;
+    width: 100vh;
+    height: 100%;
+}
+.checkOutLeftColumnAddressButtonPopUpLayOut{
+    background-color: #EDFDFD;
+    width: 100%;
+    border-radius: 24px;
+    width: fit-content;
+    height: fit-content;
+    left: 12.5%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
+    display: flex;
+    flex-direction: column;
+    
+}
+.checkOutLeftColumnAddressButtonPopUpAddresNew{
+    padding: 18px;
+    color: #000;
+    font-family: "Product Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    border-radius: 24px 24px 0px 0px;
+    border: 0px;
+    background-color: transparent;
+}
+.checkOutLeftColumnAddressButtonPopUpAddresNew:hover{
+    background-color: rgba(92, 90, 87, 0.10);
+}
+.checkOutLeftColumnAddressButtonPopUpAddresRow{
+    padding: 18px;
+    padding-top: 24px;
+    color: #000;
+    font-family: "Product Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    border-radius: 0px 0px 24px 24px;
+    border: 0px;
+    background-color: transparent;
+}
+.checkOutLeftColumnAddressButtonPopUpAddresRow:hover{
+    background-color: rgba(92, 90, 87, 0.10);
+}
+
+
+
+
+.checkOutLeftColumnInfoFormContainer{
+    padding: 0px;
+    padding-top: 12px;
+    width: 90%;
+    padding-bottom: 21px;
+}
+.checkOutLeftColumnInfoFormTop{
+    max-width: 528px;
+    height: 46px;
+    display: flex;
+}
+.checkOutLeftColumnInfoFormBottom{
+    max-width: 528px;
+    height: 46px;
+    display: flex;
+    padding-top: 12px;
+}
+.checkOutLeftColumnInfoFormIteam{
+    flex: 1 ;
+    width: 25%;
+    height: 46px;
+    border-radius: 15px;
+    border: 1px solid #808080;
+    background: rgba(217, 217, 217, 0.00);
+    margin-right: 12px;
+    padding-left: 17px;
+    color: #808080;
+    font-family: "Product Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.checkOutLeftColumnTimeDeliveryOptionsContainer{
+    padding-top: 12px;
+    width: 100%;
+}
+
+.checkOutLeftColumnTimeDeliveryOptions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 0px;
+    color: #000;
+    font-family: "Product Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 0px;
+    margin-left: -5px;
+    padding: 5px 5px;
+    border-radius: 10px;
+}
+.checkOutLeftColumnTimeDeliveryOptions:hover{
+    background-color: rgba(92, 90, 87, 0.10);
+}
+.checkOutLeftColumnCart{
+    padding-top: 21px;
+    width: 100%;
+    max-width: 600px;
+}
+.checkOutLeftColumnCartContainer{
+    border-radius: 32px;
+    background: #EDFDFD;
+    padding: 36px;
+    height: fit-content;
+}
+.checkOutLeftColumnCartTitle{
+    display: flex;
+    width: 100%;
+}
+.checkOutLeftColumnCartTitleText{
+    width: 50%;
+    color: #000;
+    font-family: "Product Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+}
+.checkOutLeftColumnCartTitleEmptyCartButton{
+    border: 0px;
+    background-color: transparent;
+    padding: 0px;
+    display: flex;
+    width: 50%;
+    justify-content: end;
+    align-items: center;
+    color: #808080;
+    font-family: "Product Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+}
+.checkOutLeftColumnCartTitleEmptyCartButton:active{
+    color: black;
+}
+
+.checkOutLeftColumnCartProductsIteamContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 41px;
+}
+.checkOutLeftColumnCartProductsIteamImageContainer{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    font-family: "Product Sans";
+}
+.checkOutLeftColumnCartProductsIteamAddMoreContainer{
+    width: 33.3333%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+
+}
+.checkOutLeftColumnCartProductsIteamAddMoreLayout{
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+.checkOutLeftColumnCartProductsIteamAddMoreMinus{
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(92, 90, 87, 0.10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+    padding: 0px;
+    cursor: pointer;
+
+}
+.checkOutLeftColumnCartProductsIteamAddNumber{
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background:  transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+    padding: 0px;
+}
+.checkOutLeftColumnCartProductsIteamAddMorePlus{
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(92, 90, 87, 0.10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+    padding: 0px;
+    cursor: pointer;
+}
+.checkOutLeftColumnCartProductsIteamPrice{
+    width: 33.3333%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-family: "Product Sans";
+    font-size: 22px;
+}
+
+.checkOutLeftColumnCartProductsAddUtensilButton{
+    margin-top: 41px;
+    background: rgba(92, 90, 87, 0.10);
+    border: 0px;
+    padding: 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    color: #000;
+    font-family: "Product Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+    
+}
+
+
+
+
+
+
+
+.checkOutRightColumnContainer{
+    background-color: aqua;
+    width: 50%;
+}
+
+

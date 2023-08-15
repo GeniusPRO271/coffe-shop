@@ -1,7 +1,7 @@
 import { ReduxProvider } from '@/redux/provider'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Provider } from 'react-redux'
+
 
 export const metadata: Metadata = {
   title: 'Filomena Cafe',
@@ -17,9 +17,9 @@ export default function RootLayout({
     <html lang="en">
         <body>
             <ReduxProvider>
-            {children}
+              {children}
             </ReduxProvider>
-          </body>
+        </body>
     </html> 
   )
 }

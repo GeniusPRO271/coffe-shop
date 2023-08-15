@@ -10,17 +10,16 @@ import MinusIcon from "@/assets/icons/MinusIcon2.svg"
 import CartNotEmptySeparator from "@/assets/icons/cartNotEmpySeparator.svg"
 import CarryOut from "@/assets/icons/CarryoutIcon.svg"
 import DeliveryIcon from "@/assets/icons/DeliveryIcon.svg"
+import { useRouter } from 'next/navigation'
+
 function CartEmpy(){
     return(
         <div className={styles.cartEmptyContent}>
-            <div className={styles.cartEmpty}>
-                <div className={styles.cartEmptyIcon}>
-                    <Image src={CartIcon} alt='CartIcon' width={150} height={133}/>
-                </div>
+                <Image src={CartIcon} alt='CartIcon' width={150} height={133} style={{marginBottom: "24px"}}/>
                 <div className={styles.cartEmpyText}>
                     Tu carro esta vacio
                 </div>
-            </div>
+            
         </div>
     )
 }
@@ -30,110 +29,137 @@ function CartNotEmpy(){
     const dispatch = useDispatch()
 
     return(
-    <div className={styles.cartNotEmpyContainer}>
-        <div className={styles.cartNotEmptyDeliverySelection}>
-            
-            <button className={styles.cartNotEmptyDeliveryOption1} onClick={() => dispatch(changeDelivery(0))}>
-                Delivery
-            </button>
-            <div className={styles.cartNotEmptyToggle} style={cartItems.deliveryOption == 1 ? {transform:"translateX(70px)"} : {transform:"translateX(-70px)"}}></div>
-            <button className={styles.cartNotEmptyDeliveryOption2} onClick={() => dispatch(changeDelivery(1))}>
-                Para Llevar
-            </button>
-        </div>
-        <div className={styles.cartNotEmptyIteams}>
-            {cartItems && cartItems.items.map((d) => {
-                return ( 
-                    <div className={styles.cartNotEmptyIteam}>
-                        <Image src={d.product.image}  alt='product Image' width={69} height={69} unoptimized={true} className={styles.cartNotEmptyImage}/>
-                        <div className={styles.cartNotEmptyText}>
-                            {d.product.title} 
-                            <br/>
-                            ${d.product.price * d.quantity} 
+    <div className={styles.cartNotEmpyRoot}>
+        <div className={styles.cartNotEmpyContainer}>
+            <div className={styles.cartNotEmptyDeliverySelectionRoot}>
+                <div className={styles.cartNotEmptyDeliverySelectionContainer}>
+                    <div className={styles.cartNotEmptyDeliverySelection}>
+                    <div className={styles.cartNotEmptyToggle} style={cartItems.deliveryOption == 1 ? {transform:"translateX(140px)"} : {transform:"translateX(0px)"}}></div>
+                        <div className={styles.cartNotEmptyDeliveryOption} onClick={() => dispatch(changeDelivery(0))}>
+                            <span className={styles.cartNotEmptyDeliveryOptionText}>
+                                Delivery
+                            </span>
                         </div>
-                        <div className={styles.cartNotEmptyCartLayout}>
-                            <div className={styles.cartNotEmptyCartContainer}>
-                            
-                                <button className={styles.cartNotEmptyButton} onClick={() => dispatch(removeItem(d.product))}>
-                                    <Image src={MinusIcon} alt='PlusIcon' width={12} height={14}/></button>
-                                <button className={styles.cartNotEmptyButton}>{d.quantity}</button>
-                                <button className={styles.cartNotEmptyButton} onClick={() => dispatch(addItem(d.product))}>
-                                    <Image src={PlusIcon} alt='PlusIcon' width={12} height={14}/></button>
-
-                            </div>
+                        <div className={styles.cartNotEmptyDeliveryOption} onClick={() => dispatch(changeDelivery(1))}>
+                        <span className={styles.cartNotEmptyDeliveryOptionText}>
+                                Para llevar
+                            </span>
                         </div>
                     </div>
-                )
+                </div>
+            </div>
+            {cartItems && cartItems.items.map((d) => {
+                    return ( 
+                        <div className={styles.cartNotEmptyIteamRow}>
+                            <div className={styles.cartNotEmptyImageContainer}>
+                                <div className={styles.cartNotEmptyImageCover}>
+                                    <Image src={d.product.image}  alt='product Image' width={69} height={69} unoptimized={true} style={{borderRadius: "18px"}} />
+                                </div>
+    
+                            </div>
+                            <div className={styles.cartNotEmptyInfo}>
+                                <div className={styles.cartNotEmptyInfoTitle}>
+                                    {d.product.title} 
+                                </div>
+                                
+                                <div className={styles.cartNotEmptyInfoPriceRow}>
+                                    <span className={styles.cartNotEmptyInfoPriceText}>${Math.max(Number((d.product.price * d.quantity).toFixed(2)))} </span>
+                                </div>
+                                
+                            </div>
+                            <div className={styles.cartNotEmptyCartButtonRoot}>
+                                <div className={styles.cartNotEmptyCartContainer}>
+                                
+                                    <button className={styles.cartNotEmptyButton} onClick={() => dispatch(removeItem(d.product))}>
+                                        <Image src={MinusIcon} alt='PlusIcon' width={12} height={14}/></button>
+                                    <span className={styles.cartNotEmptyButtonQuantity}>{d.quantity}</span>
+                                    <button className={styles.cartNotEmptyButton} onClick={() => dispatch(addItem(d.product))}>
+                                        <Image src={PlusIcon} alt='PlusIcon' width={12} height={14}/></button>
+
+                                </div>
+                            </div>
+                        </div>
+                    )
             })}
         </div>
-        <Image src={CartNotEmptySeparator}  alt='product Image' width={296} height={2}/>
     </div>
     )
 }
 
-function Cart() {
-    const cartItems = useSelector((state:RootState) => selectCartProducts(state))
+export function CartContent(){
     const dispatch = useDispatch()
-    const noFee = cartItems.totalPrice - 3000
-
-    return (
-    <div className={styles.cartContainer}>
-        <div className={styles.CartTop}>
-            <div className={styles.cartTitle}>
+    const cartItems = useSelector((state:RootState) => selectCartProducts(state))
+    const rotuer = useRouter()
+    
+    return(
+        <>
+        <div className={styles.cartTitle}>
+            <h2 className={styles.cartTitleText}>
                 Tu Carro
-            </div>
+            </h2>
             {cartItems.items.length > 0
-            && <div className={styles.cartClearButton} onClick={() => dispatch(clearCart())}>
-                Clear
-            </div>}
+            && <span className={styles.cartClearButton} onClick={() => dispatch(clearCart())}>
+                Vaciar
+            </span>}
             
         </div>
         
         {cartItems.items.length > 0 ? 
         (<>
         <CartNotEmpy/> 
-        <div className={styles.cartBottom}>
+        <div className={styles.cartFooterRoot}>
             { cartItems.deliveryOption == 1 ?
-                <div className={styles.cartOptionFeeContainer}>
+                <div className={styles.cartFooterFeeContainer}>
                         
-                    <Image src={CarryOut} alt='CarryOut' width={48} height={48}/>
-                    <div className={styles.cartFeeCarryOutContainer}>
-                        <span style={{color: "#000", fontSize:"14px"}}>
+                    <Image src={CarryOut} alt='CarryOut' width={48} height={48} className={styles.cartFooterFeeImage}/>
+                    <div className={styles.cartFooterFeeContainerText}>
+                        <div className={styles.cartFooterFeeContainerTextTime}>
                             Para llevar · 5 min. Ver Detalles
-                        </span>
-                        <br/>
-                        <span style={{color: "#A5A5A5", fontSize:"12px"}}>
+                        </div>
+                        
+                        <div className={styles.cartFooterFeeContainerTextAddress}>
                             Providencia, Miguel Claro 2109
-                        </span>
+                        </div>
                     </div>
                 </div>
                 : 
-                <div className={styles.cartOptionFeeContainer}>
+                <div className={styles.cartFooterFeeContainer}>
                         
-                    <Image src={DeliveryIcon} alt='DeliveryIcon' width={48} height={48}/>
-                    <div className={styles.cartFeeCarryOutContainer}>
-                        <span style={{color: "#000", fontSize:"14px"}}>
+                    <Image src={DeliveryIcon} alt='DeliveryIcon' width={48} height={48} className={styles.cartFooterFeeImage}/>
+                    <div className={styles.cartFooterFeeContainerText}>
+                        <div className={styles.cartFooterFeeContainerTextTime}>
                             Precio ${cartItems.deliveryFee}
-                        </span>
-                        <br/>
-                        <span style={{color: "#5AC31A", fontSize:"12px"}}>
+                        </div>
+                        
+                        <div className={styles.cartFooterFeeContainerTextFree}>
                             Para alcanzar delivery gratis  ${Math.max(Number((300 - cartItems.rawPrice).toFixed(0)),0)}
-                        </span>
+                        </div>
                     </div>
                 </div>
                 }
                 
-                <div className={styles.cartCheckOutContainer}>
-                    <button className={styles.cartCheckOutButton}>
-                        <div style={{width:"100%"}}>
-                            <span style={{width:"222px"}}>Si, ir a finalizar compra</span>
-                            <span style={{paddingLeft:"52px", fontSize: "16px"}}>${cartItems.totalPrice}</span>
-                        </div>
-                    </button>
-                </div>
+                <button className={styles.cartCheckOutButton} onClick={() => rotuer.push("/checkout")}>
+                    <span>
+                        <span className={styles.cartCheckOutButtonText}>Si, ir a finalizar compra</span>
+                        <span className={styles.cartCheckOutButtonPrice}>${cartItems.totalPrice}</span>
+                    </span>
+                </button>
         </div></>)
         : 
         <CartEmpy/>}
+    </>
+    )
+}
+
+function Cart() {
+    const cartItems = useSelector((state:RootState) => selectCartProducts(state))
+    const noFee = cartItems.totalPrice - 3000
+
+    return (
+    <div className={styles.cartRoot}>
+        <div className={styles.cartContainer}>
+            <CartContent/>
+        </div>
     </div>
     )
 }

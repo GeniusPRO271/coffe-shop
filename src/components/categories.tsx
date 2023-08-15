@@ -17,24 +17,20 @@ function Categories() {
     },[])
     
     return (
-        <div className={styles.categoriesLayout}>
-            <div className={styles.categoriesContainer}>
-                <div className={styles.categoriesTextTitle}>
+            <div className={styles.categoriesMenuSticky}>
+                <h2 className={styles.categoriesTextTitle}>
                     Menu
-                </div>
-                <div>
+                </h2>
+                <ul>
                     {categories.map((d, index:number) => {
                         return(
-                            <div className={styles.categoriesTextContainer} key={index}>
-                                <button className={styles.categoriesText} onClick={() => setSelection(index)}>
+                            <li className={styles.categoriesTextContainer} key={index}>
                                     {d}
-                                </button>
-                            </div>
+                            </li>
                         )
                     })}
-                </div>
+                </ul>
             </div>
-        </div>
     )
 }
 
