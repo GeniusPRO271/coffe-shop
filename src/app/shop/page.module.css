@@ -55,7 +55,7 @@
 }
 .categoriesTextTitle{
     margin: 48px 0 8px 16px;
-    color: #21201F;
+    color: #313638;
     font-weight: 500;
     font-family: "Product Sans";
     letter-spacing: -0.01em;
@@ -68,6 +68,7 @@
     overflow: hidden;
     font-family: "Product Sans";
     transition: background .1s;
+    color: #313638;
     line-height: 20px;
     border-radius: 16px;
 }
@@ -127,7 +128,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: #21201F;
+    color: #313638;
     font-weight: 700;
     font-size: 24px;
     font-family: "Product Sans";
@@ -145,7 +146,7 @@
     font-weight: normal;
 }
 .cartClearButton:active{
-    color: #000;
+    color: #313638;
 }
 .cartEmptyContent{
     flex: 1 0 auto;
@@ -159,7 +160,7 @@
     white-space: pre-line;
     font-family: "Product Sans";
     font-weight: 700;
-    color: #21201F;
+    color: #313638;
     font-size: 24px;
     line-height: 27px;
     letter-spacing: -0.01em;;
@@ -208,9 +209,9 @@
     font-size: 16px;
     font-family: "Product Sans";
     line-height: 19px;
-    color: #21201F;
+    color: #313638;
     flex: .5;
-    color: #21201F;
+    color: #313638;
     display: flex;
     padding: 13px 0;
     z-index: 0;
@@ -265,7 +266,7 @@
 .cartNotEmptyInfoTitle{
     -webkit-line-clamp: 2;
     max-height: 30px;
-    color: #21201F;
+    color: #313638;
     margin: 6px 0 8px;
     display: -webkit-box;
     overflow: hidden;
@@ -291,7 +292,7 @@
     white-space: nowrap;
     display: inline-block;
     position: relative;
-    color: #21201F;
+    color: #313638;
     font-weight: 500;
 }
 .cartNotEmptyCartButtonRoot{
@@ -319,7 +320,7 @@
     width: 32px;
     height: 32px;
     padding: 0;
-    color: #21201F;
+    color: #313638;
     border: none;
     cursor: pointer;
     display: flex;
@@ -369,6 +370,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
+    color: #313638;
 }
 .productCardPriceTagText{
     font-size: 24px;
@@ -376,7 +378,7 @@
     line-height: 27px;
     letter-spacing: -0.01em;
     margin-right: 4px;
-    color: #21201F;
+    color: #313638;
     font-weight: 500;
 }
 .productCardName{
@@ -390,6 +392,7 @@
     text-overflow: ellipsis;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    color: #313638;
 }
 .productCardButtonContainer{
     height: 48px;
@@ -414,7 +417,7 @@
     width: 100%;
     height: 100%;
     justify-content: center;
-    color: #FFF;
+    color: #F5F4F2;
     border: none;
     cursor: pointer;
     display: flex;
@@ -466,7 +469,7 @@
     border-radius: 16px;
     padding: 0 18px;
     width: 100%;
-    color: #21201F;
+    color: #313638;
     font-weight: 500;
     background: #1BBABB;
     height: 56px;

@@ -19,7 +19,7 @@
   padding: 0 90px;
   z-index: 100;
   position: fixed;
-  background: rgba(27, 186, 187, 1);
+  background: #1BBABB;
   transition: box-shadow 0.2s ease-in-out, background 0.4s;
   will-change: transform;
 }
@@ -55,7 +55,7 @@
   align-items: center;
 }
 .navLink{
-  color: #FFF;
+  color: #F5F4F2;
   font-family: "Product Sans";
   font-size: 16px;
   font-style: normal;
@@ -69,9 +69,9 @@
   margin-right: 24px;
 }
 .cartButtonStyle{
-  color: #FFF;
+  color: #F5F4F2;
   font-weight: 500;
-  background-color: rgba(30, 227, 228, 1);
+  background-color: #1EE3E4;
   height: 48px;
   padding: 0 18px;
   border-radius: 16px;
@@ -84,7 +84,6 @@
   justify-content: start;
   min-width: 90px;
   width: fit-content;
-  background-color: 1EE3E4;
   font-family: "Product Sans";
   font-size: 20px;
   font-style: normal;
@@ -113,17 +112,135 @@
   flex-direction: column;
   background: #EDFDFD;
 }
-.main {
-  font-family: "Product Sans";
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 95px;
-  padding-right: 95px;
-  padding-top: 130px;
-  min-height: 100vh;
+.homeRoot {
+  width: 100%;
+  margin-top: 90px;
 }
+.homePlaceRoot{
+  position: relative;
+}
+.homeLayoutContainer{
+  display: flex;
+  padding: 22px 6px !important;
+  max-width: 1873px !important;
+  min-width: 1200px;
+  justify-content: center;
+  margin: 0 auto;
+  z-index: 1;
+}
+.homeLayout{
+  display: flex;
+  justify-content: center;
+}
+.homeMainContainer{
+  display: flex;
+  width: 100vw;
+  padding: 0px 90px;
+  max-width: 1730px;
+  flex-shrink: 0;
+}
+.leftSideContainer{
+  flex: 1.5;
+}
+.bannerImageContainer{
+  width: 100%;
+  position: relative;
+}
+.bannerImage{
+  object-fit: cover;
+  width: 100%;
+  max-height: 363px;
+  height: 100%;
+  border-radius: 30px;
+}
+.bannerTextContainer{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 80px 0px 80px 45px;
+  height: 100%;
+  position: absolute;
+}
+.bannerText{
+  color: #F5F4F2;
+  font-family: "Product Sans";
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.bannerSloganContainer{
+  width: 100%
+}
+.bannerSloganLayout{
+  display: flex;
+  height: 100%;
+}
+.bannerSloganText{
+  color: #313638;
+  font-family: "Product Sans";
+  font-size: 96px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 130px; /* 123.81% */
+}
+.bannerDescriptionText{
+  color: #313638;
+  font-family: "Product Sans";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.bannerDescriptionContainer{
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.bannerButtonContainer{
+  width: 100%;
+}
+.bannerButtonLayout{
+  padding: 10px;
+  padding-left: 0px;
+  display: flex;
+  justify-content: start;
+}
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  width: 400px;
+  height: 122px;
+  margin: 20px;
+  margin-left: 0px;
+  cursor: pointer;
+  text-decoration: none;
+
+}
+.buttonText{
+  flex: 1;
+  font-family:"Product Sans";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
+.buttonIconContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buttonIcon{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+.rightSideContainer{
+  flex: 1;
+}
+
 .contentContainer{
   display: flex;
   justify-content: center;
@@ -135,110 +252,3 @@
 .rightSideContainer{
   padding-right: 20px;
 }
-.textTitle{
-  color: #000;
-  text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  font-size: 105px;
-  font-style: bold;
-  font-weight: bold;
-  line-height: 130px; 
-}
-.textDescription{
-  color: #000;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  width: 893px;
-  padding-top: 47px;
-}
-.buttonsContainer{
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  padding-top: 48px;
-}
-.deliveryButton{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 400px;
-  height: 122px;
-  border: 0px;
-  border-radius: 20px;
-  background: rgba(30, 227, 228, 0.30);
-  color: #000;
-  font-family: "Product Sans";
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-.takeButton{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 400px;
-  height: 122px;
-  border: 0px;
-  border-radius: 20px;
-  background: #1BBABB;
-  color: #FFF;
-  font-family: "Product Sans";
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-left: 20px;
-}
-.menuContainer{
-  width: 640px;
-  height: 300px;
-  border-radius: 30px;
-  background: rgba(30, 227, 228, 0.30);
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  padding-left: 20px;
-  padding-right: 32px;
-  padding-top: 35px;
-  margin-top: 30px;
-}
-.textMenu{
-  color: #000;
-  font-family: "Product Sans";
-  font-size: 35px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  width: 588px;
-  height: 185px;
-}
-.menuBottomRow{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.textMore{
-  color: #1BBABB;
-  font-family: "Product Sans";
-  font-size: 25px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  width: 194px;
-  padding-top: 43px;
-  width: 100%;
-}
-.mapStyle{
-  width: 692px;
-  height: 600px;
-  border-radius: 30px;
-  border: 0px;
-}
-.MenuImage{
-  margin-left: 20px;
-  margin-bottom: 20px;
-}
-

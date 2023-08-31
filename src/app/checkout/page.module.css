@@ -57,7 +57,7 @@
     align-items: end;
 }
 .checkOutLeftColumnTitle{
-    color: #000;
+    color: #313638;
     font-family: "Product Sans";
     font-size: 50px;
     width: 100%;
@@ -83,7 +83,7 @@
     padding: 39px 36px;
 }
 .checkOutLeftColumnTermsTitle{
-    color: #000;
+    color: #313638;
     font-family: "Product Sans";
     font-size: 24px;
     font-style: normal;
@@ -98,7 +98,7 @@
 
 }
 .checkOutLeftColumnTermsDeliveryOptionsContainer{
-    color: #000;
+    color: #313638;
     font-family:"Product Sans";
     font-size: 16px;
     font-style: normal;
@@ -133,7 +133,7 @@
     align-items: center;
     background-color: transparent;
     border: 0px;
-    color: #000;
+    color: #313638;
     font-family: "Product Sans";
     font-size: 16px;
     font-style: normal;
@@ -177,7 +177,7 @@
 }
 .checkOutLeftColumnAddressButtonPopUpAddresNew{
     padding: 18px;
-    color: #000;
+    color: #313638;
     font-family: "Product Sans";
     font-size: 16px;
     font-style: normal;
@@ -195,7 +195,7 @@
 .checkOutLeftColumnAddressButtonPopUpAddresRow{
     padding: 18px;
     padding-top: 24px;
-    color: #000;
+    color: #313638;
     font-family: "Product Sans";
     font-size: 16px;
     font-style: normal;
@@ -258,7 +258,7 @@
     align-items: center;
     background-color: transparent;
     border: 0px;
-    color: #000;
+    color: #313638;
     font-family: "Product Sans";
     font-size: 16px;
     font-style: normal;
@@ -289,7 +289,7 @@
 }
 .checkOutLeftColumnCartTitleText{
     width: 50%;
-    color: #000;
+    color: #313638;
     font-family: "Product Sans";
     font-size: 24px;
     font-style: normal;
@@ -394,7 +394,7 @@
     border-radius: 12px;
     display: flex;
     align-items: center;
-    color: #000;
+    color: #313638;
     font-family: "Product Sans";
     font-size: 16px;
     font-style: normal;
