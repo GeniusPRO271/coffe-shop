@@ -88,6 +88,22 @@
   font-size: 20px;
   font-style: normal;
 }
+.logInButton{
+  margin-right: 10px;
+  color: #F5F4F2;
+  font-weight: 500;
+  background-color: #1EE3E4;
+  height: 48px;
+  width: 50px;
+  border-radius: 16px;
+  border: none;
+  display: flex;
+  position: relative;
+  font-size: 16px;
+  align-items: center;
+  line-height: 21px;
+  justify-content: center;
+}
 .popUpRoot{
   position: fixed;
   top: 0;

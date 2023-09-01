@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styles from "../app/home/page.module.css"
 import Logo from "@/assets/Logo.svg"
 import CartIcon from "@/assets/icons/BagIcon.svg"
+import UserIcon from "@/assets/icons/user-solid.svg"
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
@@ -9,6 +10,7 @@ import { RootState } from '@/redux/store/store'
 import { selectCartProducts } from '@/redux/features/cart/cartSlice'
 import PopOut from './popUp'
 import { CartContent } from './cartMenu'
+
 function NavBar() {
     const cartItems = useSelector((state:RootState) => selectCartProducts(state))
     const [popUpShow, setPopUpShow] = useState<boolean>(false)
@@ -25,7 +27,11 @@ function NavBar() {
                         <Link href="/home" className={styles.navLink}> Visitanos </Link>
                     </div>
                 </div>
-                <div className={styles.navBarRightSide}>                   
+                <div className={styles.navBarRightSide}>  
+                        <button className={styles.logInButton}>
+                            <Image src={UserIcon} alt='UserIcon' height={20} width={20}/>
+                        </button> 
+
                         <button className={styles.cartButtonStyle} id='cartButton' onClick={() => setPopUpShow(popUpShow => !popUpShow)}>
                             <Image src={CartIcon} alt='CartIcon' height={23} width={20} style={{marginRight: "6px"}}/>
                             <span style={{paddingRight:"15px"}}>${cartItems.totalPrice}</span>
