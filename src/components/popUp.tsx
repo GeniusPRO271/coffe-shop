@@ -7,10 +7,11 @@ interface PopOutProps {
   children: React.ReactNode; // Use React.ReactNode type for children
   style?: React.CSSProperties
   oppositeCorner?: boolean
+  freePosition?: boolean
 
 }
 
-function PopOut({ id, children, style = {}, oppositeCorner = false }: PopOutProps) {
+function PopOut({ id, children, style = {}, oppositeCorner = false,freePosition = false } : PopOutProps) {
   const popUpId = "popUpLayOut"
   const [width, setWidth] = useState<number>(0);
   const [buttonWidth, setButtonWidth] = useState<number>(0)
@@ -55,13 +56,12 @@ function PopOut({ id, children, style = {}, oppositeCorner = false }: PopOutProp
  // Include id in the dependency array to re-run effect when id changes
 
   return (
-    <div style={{ position: 'fixed', top: height + 33, left: oppositeCorner ? width+(buttonWidth-popUpWidth) : width,}} onClick={stopPropagation}>
+    <div style={freePosition ? {} : { position: 'fixed', top: height + 33, left: oppositeCorner ? width+(buttonWidth-popUpWidth) : width, zIndex:1000}} onClick={stopPropagation}>
       <motion.div
         transition={{ duration: 0.2 }}
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 30 }}
-        className={styles.checkOutLeftColumnAddressButtonPopUpContainer}
       >
         <div ref={popUpRef} id="popUpLayOut" className={styles.checkOutLeftColumnAddressButtonPopUpLayOut} style={style}>
             {children}

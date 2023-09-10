@@ -5,15 +5,18 @@ import CartIcon from "@/assets/icons/BagIcon.svg"
 import UserIcon from "@/assets/icons/user-solid.svg"
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSelector } from 'react-redux'
+import {useSelector } from 'react-redux'
 import { RootState } from '@/redux/store/store'
 import { selectCartProducts } from '@/redux/features/cart/cartSlice'
 import PopOut from './popUp'
 import { CartContent } from './cartMenu'
 
+
 function NavBar() {
+
     const cartItems = useSelector((state:RootState) => selectCartProducts(state))
     const [popUpShow, setPopUpShow] = useState<boolean>(false)
+
     return (
         <>
         <header className={styles.navBarLayout}>
@@ -28,7 +31,7 @@ function NavBar() {
                     </div>
                 </div>
                 <div className={styles.navBarRightSide}>  
-                        <button className={styles.logInButton}>
+                        <button className={styles.logInButton} id='userButton'>
                             <Image src={UserIcon} alt='UserIcon' height={20} width={20}/>
                         </button> 
 

@@ -1,14 +1,12 @@
 @font-face {
     font-family: "Product Sans";
-    src: url("../assets/fonts/product-sans/Product\ Sans\ Regular.ttf");
+    src: url("../assets/fonts/product-sans/ProductSansRegular.ttf");
     font-weight: normal;
-    font-style: normal;
 }
 @font-face {
     font-family: "Product Sans";
-    src: url("../assets/fonts/product-sans/Product\ Sans\ Bold.ttf");
+    src: url("../assets/fonts/product-sans/ProductSansBold.ttf");
     font-weight: bold;
-    font-style: bold;
 }
 *{
     box-sizing: border-box;
@@ -24,10 +22,10 @@ html, body {
 }
 
 button{
-    padding: 0px;
-    border: 0px;
+    padding: 0;
+    border: 0;
 }
 ul{
     list-style: none;
-    padding: 0px;
+    padding: 0;
 }

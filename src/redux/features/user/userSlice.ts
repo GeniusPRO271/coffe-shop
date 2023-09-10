@@ -1,12 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {Product} from "@/types/product"
 import { User } from "@/types/user";
+import { RootState } from "@/redux/store/store";
 
 const initialState: User = {
     name : "",
     lastName : "",
     phone : "",
-    address : ""
+    address : [],
+    activeAddress: ""
 }
 
 export const userSlice = createSlice({
@@ -22,11 +24,15 @@ export const userSlice = createSlice({
         changeLastName(state, action: PayloadAction<Product>){
             
         },
-        changeAddress(state, action: PayloadAction<Product>){
-
+        addAddress(state, action: PayloadAction<string>){
+            state.address.push(action.payload)
+            state.activeAddress = action.payload
         },
-        changePhone(state, action: PayloadAction<Product>){
-
+        changeActiveAddress(state , action: PayloadAction<string>){
+            state.activeAddress = action.payload
+        },
+        changePhone(state, action: PayloadAction<string>){
+            state.phone = action.payload
         },
         logOut(state, action: PayloadAction<Product>){
 
@@ -34,6 +40,9 @@ export const userSlice = createSlice({
     }
 })
 
-export const { changeUser, changeName, changeLastName, changeAddress,changePhone,logOut } = userSlice.actions
+export const { changeUser, changeName, changeLastName, addAddress, changeActiveAddress, changePhone,logOut } = userSlice.actions
+
+export const selectAddreses = (state : RootState) => state.user.address
+export const selectActiveAddress = (state : RootState) => state.user.activeAddress
 
 export default userSlice.reducer

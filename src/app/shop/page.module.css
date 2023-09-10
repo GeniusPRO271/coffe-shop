@@ -1,15 +1,14 @@
 
 @font-face {
     font-family: "Product Sans";
-    src: url("../../assets/fonts/product-sans/Product\ Sans\ Regular.ttf");
+    src: url("../../assets/fonts/product-sans/ProductSansRegular.ttf");
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
     font-family: "Product Sans";
-    src: url("../../assets/fonts/product-sans/Product\ Sans\ Bold.ttf");
+    src: url("../../assets/fonts/product-sans/ProductSansBold.ttf");
     font-weight: bold;
-    font-style: bold;
   }
 
 .shopRoot{
@@ -230,7 +229,7 @@
     text-overflow: ellipsis;
 }
 .cartNotEmptyToggle{
-    left: 0%;
+    left: 0;
     width: 50%;
     height: 100%;
     position: absolute;

@@ -1,7 +1,9 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from "./page.module.css"
 import PlusIcon from "@/assets/icons/PlusIcon2.svg"
+import SearchIcon from "@/assets/icons/magnifying-glass-solid.svg"
+import Xicon from "@/assets/icons/xmark-solid.svg"
 import MinusIcon from "@/assets/icons/MinusIcon2.svg"
 import HouseIcon from "@/assets/icons/House-icon.svg"
 import ClockIcon from "@/assets/icons/clock-solid.svg"
@@ -9,22 +11,30 @@ import TrashCan from "@/assets/icons/TrashCan.svg"
 import UtensilIcon from "@/assets/icons/Utensil.svg"
 import PointingIcon from "@/assets/icons/angle-right-solid.svg"
 import Arrow from "@/assets/icons/ArrowPointingLeft.svg"
+import CheckIcon from "@/assets/icons/check-solid.svg"
 import Logo from "@/assets/Logo.svg"
 import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/redux/store/store'
-import { addItem, clearCart, removeItem, selectCartProduct, selectCartProductId, selectCartProducts } from '@/redux/features/cart/cartSlice'
+import { addItem, clearCart, removeItem, selectCartProductId, selectCartProducts } from '@/redux/features/cart/cartSlice'
 import { Product } from '@/types/product'
 import { useRouter } from 'next/navigation';
 import {motion} from "framer-motion"
+import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import PopOut from '@/components/popUp'
+import AutoComplete from '@/components/autoComplete'
+import { addAddress, changeActiveAddress, selectActiveAddress, selectAddreses } from '@/redux/features/user/userSlice'
+import { YmapsAddress, YmapsAddress_init, createYMapsAddress } from '@/types/ymaps'
 function Checkout() {
-    const router = useRouter();
     const dispatch = useDispatch()
     const [deliveryOpt, setDeliveryOpt] = useState<number>(0)
-    const [addres, setAddres] = useState<string>("    ") // temorary bc we still need to do redux for client / user
+
+    const addreses = useSelector((state: RootState) => selectAddreses(state))
+    const activeAdress = useSelector((state: RootState) => selectActiveAddress(state))
+
     const [addresIsOpen, SetAddresIsOpen] = useState<boolean>(false)
     const [timeIsOpen, SetTimeIsOpen] = useState<boolean>(false)
+    const [newAddressOpen, SetNewAddressOpen] = useState<boolean>(false)
     const [popUpIsOpen, SetPopUpIsOpen] = useState<boolean>(false)
     const cartItems = useSelector((state:RootState) => selectCartProducts(state))
     const Utensilio:Product  = {
@@ -45,7 +55,6 @@ function Checkout() {
     }
     
     const handleScroll = () => {
-        // Your scroll handling logic here
         closeAllPopUps()
         };
 
@@ -82,25 +91,37 @@ function Checkout() {
                                         </button>
                                     </div> 
                                     <div className={styles.checkOutLeftColumnAddressContainer}>
-                                        {addres.trim().length > 0 ? 
-                                            <button className={styles.checkOutLeftColumnAddressButton} onClick={() => {SetAddresIsOpen(addresIsOpen => !addresIsOpen),SetPopUpIsOpen(popUpIsOpen => !popUpIsOpen)}}>
-                                                <Image src={HouseIcon} alt='PlusIcon' width={24} height={24} style={{marginRight: "6px"}}/>
-                                                {addres}
-                                                <Image src={PointingIcon} alt='PlusIcon' width={12} height={12} style={{marginLeft: "6px"}}/>
-                                            </button> 
+                                        {addreses.length > 0 ?
+                                            <button id="addresButton" className={styles.checkOutLeftColumnAddressButton} onClick={() => {SetAddresIsOpen(addresIsOpen => !addresIsOpen); SetPopUpIsOpen(popUpIsOpen => !popUpIsOpen)}}>
+                                                    <Image src={HouseIcon} alt='HouseIcon' width={18} height={18} style={{marginRight: "6px"}}/>
+                                                        {activeAdress}
+                                                    <motion.div
+                                                    className={styles.checkOutLeftColumnAddressButtonArrow}
+                                                    animate={addresIsOpen ? {rotate: 180} : {rotate: 0}}
+                                                    transition={{duration: 0.2}}
+
+                                                    >
+                                                        <Image src={PointingIcon} alt='PointingIcon' width={16} height={16} style={{transform: "rotate(90deg)"}}/>
+                                                    </motion.div>
+                                            </button>
                                             :
                                             (
                                             
-                                                    <button id="addresButton" className={styles.checkOutLeftColumnAddressButton} onClick={() => {SetAddresIsOpen(addresIsOpen => !addresIsOpen),SetPopUpIsOpen(popUpIsOpen => !popUpIsOpen)}}>
+                                                    <button id="addresButton" className={styles.checkOutLeftColumnAddressButton}
+                                                            onClick={() => {
+                                                                SetAddresIsOpen(addresIsOpen => !addresIsOpen);
+                                                                SetPopUpIsOpen(popUpIsOpen => !popUpIsOpen)
+                                                            }}>
+
                                                         <Image src={PlusIcon} alt='PlusIcon' width={18} height={18} style={{marginRight: "6px"}}/>
                                                         Añadir direccion 
                                                         <motion.div 
                                                             className={styles.checkOutLeftColumnAddressButtonArrow} 
-                                                            animate={addresIsOpen ? {rotate: 270} : {rotate: 90}} 
+                                                            animate={addresIsOpen ? {rotate: 180} : {rotate: 0}}
                                                             transition={{duration: 0.2}}
                                                             
                                                         >
-                                                            <Image src={PointingIcon} alt='PlusIcon' width={16} height={16}/>
+                                                            <Image src={PointingIcon} alt='PointingIcon' width={16} height={16} style={{transform: "rotate(90deg)"}}/>
                                                         </motion.div>
                                                     </button>
                                             
@@ -123,14 +144,15 @@ function Checkout() {
                                     </div>
                                     <span className={styles.checkOutLeftColumnTermsTitle}>Terminos del delivery</span>
                                     <div className={styles.checkOutLeftColumnTimeDeliveryOptionsContainer}>
-                                        <button id="timeButton" className={styles.checkOutLeftColumnTimeDeliveryOptions} onClick={() => {SetTimeIsOpen(timeIsOpen => !timeIsOpen),SetPopUpIsOpen(popUpIsOpen => !popUpIsOpen)}}>
+                                        <button id="timeButton" className={styles.checkOutLeftColumnTimeDeliveryOptions} onClick={() => {SetTimeIsOpen(timeIsOpen => !timeIsOpen); SetPopUpIsOpen(popUpIsOpen => !popUpIsOpen)}}>
                                             <Image src={ClockIcon} alt='ClockIcon' width={18} height={18} style={{marginRight: "6px"}}/>
                                             Delivery 30-40 min
                                             <motion.div 
                                                 className={styles.checkOutLeftColumnAddressButtonArrow} 
-                                                animate={timeIsOpen ? {rotate: 270} : {rotate: 90}} 
-                                                transition={{duration: 0.2}}>
-                                                <Image src={PointingIcon} alt='PlusIcon' width={16} height={16}/>
+                                                animate={timeIsOpen ? {rotate: 180} : {rotate: 0}}
+                                                transition={{duration: 0.2}}
+                                                >
+                                                <Image src={PointingIcon} alt='PlusIcon' width={16} height={16} style={{transform: "rotate(90deg)"}}/>
                                             </motion.div>
                                         </button>
                                     </div>
@@ -169,14 +191,19 @@ function Checkout() {
                 </div>
                 {addresIsOpen  && 
                     <PopOut id='addresButton' style={{marginTop: "4px",marginLeft:"-14px"}}>
-                        <button className={styles.checkOutLeftColumnAddressButtonPopUpAddresNew}>
+                        <button className={styles.checkOutLeftColumnAddressButtonPopUpAddresNew} id="newAddressButton" onClick={() => {SetNewAddressOpen(true); SetAddresIsOpen(false)}} style={addreses && addreses.length > 0 ? {}  : {borderRadius: "24px"}}>
                             Agregar nueva direccion
                             <Image src={PlusIcon} alt='PlusIcon' width={18} height={18} style={{marginLeft: "12px"}}/>
                         </button>
-                        {addres && addres.trim().length > 0 && <button className={styles.checkOutLeftColumnAddressButtonPopUpAddresNew}>
-                            Agregar nueva direccion
-                            <Image src={PlusIcon} alt='PlusIcon' width={18} height={18} style={{marginLeft: "12px"}}/>
-                        </button>}
+                        {addreses && addreses.length > 0 && addreses.map((iteam: string, index: number) => {
+                            return(
+                                <button className={styles.checkOutLeftColumnAddressButtonPopUpAddresNew} style={ (addreses.length - 1) ===  index ? {borderRadius: "0px", borderBottomLeftRadius: "24px", borderBottomRightRadius: "24px"} : {borderRadius: "0px"} } onClick={() => {dispatch(changeActiveAddress(iteam))}}>
+                                    {iteam}
+                                    {iteam === activeAdress && <Image src={CheckIcon} alt='CheckIcon' width={18} height={18} style={{marginLeft: "12px"}}/>}
+                                </button>
+                            )
+                        })
+                        }
                     </PopOut>}
                 {timeIsOpen  && 
                     <PopOut id='timeButton' style={{marginTop: "4px", minWidth: "200px", marginLeft:"-14px"}}>
@@ -184,6 +211,13 @@ function Checkout() {
                             Escojer un tiempo
                         </button>
                     </PopOut>}
+                {newAddressOpen  &&
+                <div className={styles.checkOutAddNewAddress}>
+                    <PopOut id='newAddressButton' freePosition={true} style={{backgroundColor:"#F5F4F2", width:"960px", height:"608px"}}>
+                        <NewAdressComponent SetNewAddressOpen={SetNewAddressOpen}/>
+                    </PopOut>
+                </div>
+                    }
             </div>
         </>
         
@@ -220,6 +254,215 @@ function ProductIteam({width,height,src,title,amount,price, d}:{width:number, he
         </div>
     )
 }
+
+function NewAdressComponent({SetNewAddressOpen } :  {SetNewAddressOpen: React.Dispatch<React.SetStateAction<boolean>>}){
+
+
+    const [newAddressInput, setNewAddressInput] = useState<string>("")
+    const [addressClicked, setAddressClicked] = useState<YmapsAddress>(YmapsAddress_init)
+    const [address, setAddress] = useState<YmapsAddress[]>([])
+
+    const [cords, setCords] = useState<number[]>([56.484645, 84.947649])
+    const dispatch = useDispatch()
+
+    const [popUp, setPopUp] = useState<boolean>(false)
+    const API_KEY = "433b162f-8c44-4a17-9edf-495b7f7ca5ac"
+
+    useEffect(() => {
+        (async () => {
+          try {
+            if (newAddressInput) {
+              const res = await fetch(
+                `https://geocode-maps.yandex.ru/1.x/?apikey=${API_KEY}&format=json&lang=en_RU&geocode=${newAddressInput}`
+              );
+              const data = await res.json();
+              const collectionYmapAddreses : YmapsAddress[] = []
+              const collectionOfAddresses = data.response.GeoObjectCollection.featureMember.map(
+                (item:any) => item.GeoObject
+              );
+              collectionOfAddresses.map((iteam:any) => {
+
+                let street = ""
+                let house = ""
+                let district = ""
+                let province = ""
+                let country = ""
+                let formatted: string
+                  console.log(iteam)
+                iteam.metaDataProperty.GeocoderMetaData.Address.Components.forEach((parts:any) => {
+                    switch (parts.kind) {
+                      case 'country':
+                        country = parts.name;
+                        break;
+                      case 'province':
+                        province = parts.name;
+                        break;
+                      case 'district':
+                        district = parts.name;
+                        break;
+                      case 'street':
+                        street = parts.name;
+                        break;
+                      case "house":
+                          house = parts.name
+                          break;
+                      default:
+                            break;
+                    }
+                  });
+
+                let cords
+                cords = [iteam.Point.pos]
+                console.log(cords)
+                formatted = `${iteam.name}, ${iteam.description}`
+
+
+                const YmapsAddressObject : YmapsAddress = createYMapsAddress({street, house, district,province,country,formatted: formatted,cords})
+                collectionYmapAddreses.push(YmapsAddressObject)
+              })
+
+              setAddress(collectionYmapAddreses)
+            }
+          } catch (e) {
+            console.log(e);
+          }
+        })();
+      }, [newAddressInput]);
+
+    return(
+        <div className={styles.NewAdressComponentContainer}>
+            <div style={{position:"absolute", display:"flex", flex:1, width:"95%", flexDirection:"row-reverse"}}>
+                <Image src={Xicon} alt='Xicon' width={24} height={24} onClick={() => SetNewAddressOpen(false)} style={{cursor: "pointer"}}/>
+            </div>
+            <div className={styles.NewAdressComponentSearchContainer}>
+                <div className={styles.NewAdressComponentSearchTextsContainer}>
+                    <div className={styles.NewAdressComponentSearchTitle}>
+                        Ingresa tu direccion para el delivery
+                    </div>
+                    <div className={styles.NewAdressComponentSearchSubTitle}>
+                        O como vamos a saver donde eviar tu pedido?
+                    </div>
+                </div>
+                <div className={styles.NewAdressComponentSearchBarContainer}>
+                    <div className={styles.NewAdressComponentSearchBar}>
+                        <Image src={SearchIcon} alt='SearchIcon' width={24} height={48}/>
+                        <AutoComplete
+                            id={"autoComplete1"}
+                            className={styles.NewAdressComponentSearchBarInput}
+                            placeholder='Ingresa la direccion a la cual quieres que enviemos tu pedido'
+                            valueInput={newAddressInput}
+                            onChange={(event) => {setNewAddressInput(event.target.value); setPopUp(true)}}
+
+                            collection={address}
+                            setCollection={setAddress}
+
+                            changeValue={setNewAddressInput}
+                            changeCords={setCords}
+
+                            setAddressClicked={setAddressClicked}
+                            popUp={popUp}
+                            setPopUp={setPopUp}
+                            />
+                        <Image src={Xicon} alt='Xicon' width={24} height={24} onClick={() => {setNewAddressInput(""); setAddressClicked(YmapsAddress_init)}} style={{cursor: "pointer"}}/>
+
+                    </div>
+                    {addressClicked.cords.length > 1 && addressClicked.formatted === newAddressInput && addressClicked.house != undefined
+                    ? <button onClick={() => {dispatch(addAddress(`${addressClicked.street != undefined && addressClicked.street != "" ? addressClicked.street + "," : ""} ${addressClicked.house != undefined && addressClicked.house != "" ? addressClicked.house : ""}`)); SetNewAddressOpen(false)}} className={styles.NewAdressComponentSearchBarButton} >
+                        OK
+                    </button>
+                        :
+                    <button className={styles.NewAdressComponentSearchBarButton} style={{backgroundColor: "rgba(92, 90, 87, 0.10)", color: "#9E9B98", cursor: "default"}}>
+                        OK
+                    </button>}
+
+                </div>
+
+            </div>
+            <div className={styles.NewAdressComponentMapsContainer}>
+                <MapsCompnent API_KEY={API_KEY} Cords={cords} setCords={setCords} setNewAddressInput={setNewAddressInput} setAddressClicked={setAddressClicked}/>
+            </div>
+        </div>
+    )
+}
+
+function MapsCompnent({API_KEY, Cords, setCords, setNewAddressInput, setAddressClicked}:{API_KEY:string, Cords:number[], setCords: React.Dispatch<React.SetStateAction<any[]>>, setNewAddressInput: React.Dispatch<React.SetStateAction<string>>, setAddressClicked: React.Dispatch<React.SetStateAction<YmapsAddress>>}) {
+    const defaultState = {
+      center: Cords,
+      zoom: 17,
+    };
+    const ymaps = useRef<any>(null)
+    const placeMarkRef = useRef<any>()
+    const mapRef = useRef<any>()
+
+    return (
+      <YMaps
+      query={
+        {lang: "en_RU",
+        load:"geocode",
+        apikey: API_KEY}
+      }
+      >
+        <Map
+            defaultState={defaultState}
+            state={{center: Cords, zoom: 17}}
+            style={{width:"100%",height:"100%", borderRadius:"16px"}}
+            instanceRef={mapRef}
+            onLoad={(e) => {
+                ymaps.current = e;
+              }}
+              onClick={(event:any) => {
+                const coords = event.get("coords");
+                setCords(() => coords);
+
+                ymaps.current.geocode(coords).then((res:any) => {
+                    const firstGeoObject = res.geoObjects.get(0);
+
+                    let street = firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
+                    let house = firstGeoObject.getPremiseNumber()
+                    let province = firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas()
+                    let country = firstGeoObject.getCountry();
+                    console.log("clicked")
+                    console.log("street:",street)
+                    console.log("house:",house)
+                    console.log("province:",province)
+                    console.log("country:",country)
+                    let formated = `${street != undefined && street != "" ? street + "," : ""} ${house !== undefined && house != "" ? house + "," : ""} ${province != undefined && province != "" ? province + "," : ""} ${country != undefined && country != "" ? country: ""}`
+                    setNewAddressInput(formated)
+                    const newYmapsAddress = createYMapsAddress({street, house, province, country, cords : coords, formatted: formated})
+                    setAddressClicked(newYmapsAddress)
+                  });
+              }}
+
+
+        >
+          <Placemark
+          instanceRef={placeMarkRef}
+          options={{
+            draggable: true
+          }}
+
+          onDragEnd={() => {
+            const coords = placeMarkRef.current.geometry._coordinates;
+            setCords(() => coords)
+            ymaps.current.geocode(coords).then((res:any) => {
+                const firstGeoObject = res.geoObjects.get(0);
+
+                let street = firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
+                let house = firstGeoObject.getPremiseNumber()
+                let province = firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas()
+                let country = firstGeoObject.getCountry();
+                let formatted = `${street != undefined && street != "" ? street + "," : ""} ${house != undefined && house != "" ? house + "," : ""} ${province != undefined && province != "" ? province + "," : ""} ${country != undefined && country != "" ? country: ""}`
+                setNewAddressInput(formatted)
+                const newYmapsAddress = createYMapsAddress({street, house, province, country, cords : coords, formatted: formatted})
+                setAddressClicked(newYmapsAddress)
+              });
+          }}
+          geometry={Cords}/>
+        </Map>
+      </YMaps>
+    );
+  }
+
 
 function NavBar(){
     const router = useRouter();

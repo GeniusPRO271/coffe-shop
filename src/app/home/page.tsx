@@ -3,8 +3,7 @@
 import Image from 'next/image'
 import styles from "./page.module.css"
 import BannerImage from "@/assets/bannerimage.png"
-import textBanner from "@/assets/textBanner.svg"
-import MenuImage from "@/assets/Menu.svg"
+import MenuImage from "@/assets/MenuImage.svg"
 import NavBar from '@/components/navBar'
 import DeliveryIcon from "@/assets/icons/DeliveryIcon2.svg"
 import SpearatorButton from "@/assets/SpearatorButton.svg"
@@ -78,7 +77,21 @@ export default function Home() {
                 </div>
               </div>
               <div className={styles.rightSideContainer}>
-                  Right
+                  <div className={styles.rightSideLayout}>
+                      <div className={styles.mapContainer}>
+                        <iframe src="https://yandex.com/map-widget/v1/?um=constructor%3A39a16a8fa698b85df5646aa6d746ec9c1a6f79e3cfa891634ec20d7df77e9cfc&amp;source=constructor" width="100%" height="630"
+                                frameBorder="0" style={{borderRadius:"15px"}}></iframe>
+                      </div>
+                      <div className={styles.menuBannerRoot}>
+                        <div className={styles.manuBannerImageContainer}>
+                          <Image className={styles.menuBannerImage} src={MenuImage} alt='MenuImage'/>
+                        </div>
+                        <div className={styles.manuBannerContainer}>
+                          <span className={styles.menuBannerText}>¡Descubre un mundo de sabores!.
+                          En nuestro menú de café y deleites culinarios.</span>
+                        </div>
+                      </div>
+                  </div>
               </div>
             </div>
           </div>

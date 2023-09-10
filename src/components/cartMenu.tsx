@@ -48,9 +48,9 @@ function CartNotEmpy(){
                     </div>
                 </div>
             </div>
-            {cartItems && cartItems.items.map((d) => {
+            {cartItems && cartItems.items.map((d, index:number) => {
                     return ( 
-                        <div className={styles.cartNotEmptyIteamRow}>
+                        <div  key={index} className={styles.cartNotEmptyIteamRow}>
                             <div className={styles.cartNotEmptyImageContainer}>
                                 <div className={styles.cartNotEmptyImageCover}>
                                     <Image src={d.product.image}  alt='product Image' width={69} height={69} unoptimized={true} style={{borderRadius: "18px"}} />
