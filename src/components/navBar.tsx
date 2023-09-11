@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react'
 import styles from "../app/home/page.module.css"
 import Logo from "@/assets/Logo.svg"

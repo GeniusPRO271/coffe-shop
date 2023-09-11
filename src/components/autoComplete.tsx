@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import PopOut from './popUp'
 import { motion } from 'framer-motion'; 
 import styles from "@/app/checkout/page.module.css"
-import { YmapsAddress } from '@/types/ymaps';
+import { YmapsAddressClass } from '@/types/ymaps';
 
 interface autoCompleteProps{
     id: string
@@ -11,8 +11,8 @@ interface autoCompleteProps{
     onChange: React.ChangeEventHandler<HTMLInputElement>
     className: string | undefined
 
-    collection : YmapsAddress[],
-    setCollection : React.Dispatch<React.SetStateAction<YmapsAddress[]>>
+    collection : YmapsAddressClass[],
+    setCollection : React.Dispatch<React.SetStateAction<YmapsAddressClass[]>>
 
     changeValue: React.Dispatch<React.SetStateAction<string>>
     changeCords: React.Dispatch<React.SetStateAction<any[]>>
@@ -20,7 +20,7 @@ interface autoCompleteProps{
     popUp : boolean
     setPopUp:  React.Dispatch<React.SetStateAction<boolean>>
 
-    setAddressClicked:React.Dispatch<React.SetStateAction<YmapsAddress>>
+    setAddressClicked:React.Dispatch<React.SetStateAction<YmapsAddressClass>>
 }
 
 function AutoComplete({id, placeholder, valueInput, collection, onChange, className, changeValue, setCollection, changeCords, popUp, setPopUp, setAddressClicked}: autoCompleteProps) {
@@ -30,7 +30,7 @@ function AutoComplete({id, placeholder, valueInput, collection, onChange, classN
         <input id={id} className={className} placeholder={placeholder} value={valueInput} onChange={onChange} autoComplete='off'/>
         {valueInput.length > 0 && popUp && collection && collection.length > 0 &&
             <PopOut id={id} style={{backgroundColor:"#F5F4F2", marginTop:"15px", width:"632px", maxHeight:"336px" ,borderTopLeftRadius:"0px", borderTopRightRadius:"0px", overflow:"scroll"}}>
-                {collection.map((address:YmapsAddress, index:number) => {
+                {collection.map((address:YmapsAddressClass, index:number) => {
                     return(
                         <motion.div 
                         key={index}

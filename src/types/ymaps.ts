@@ -1,48 +1,185 @@
-export interface YmapsAddress {
-    street?: string
-    house?: string
-    district?: string 
-    province?: string 
-    country?: string
-    formatted : string
-    cords : string[]
-}
+import {Console} from "inspector";
 
-export const YmapsAddress_init = {
-    street: "",
-    house: "",
-    district: "" ,
-    province: "" ,
-    country: "",
-    formatted : "string",
-    cords : []
-}
+export class YmapsAddressClass {
+    street?: string;
+    house?: string;
+    district?: string;
+    province?: string;
+    country?: string;
+    formatted: string;
+    cords: string[];
 
-export function createYMapsAddress({street, house, district, province, country, cords, formatted} : YmapsAddress) : YmapsAddress {
+    constructor(cords? : string[], street? : string, house? : string,district? : string ,province? : string,country?: string,formatted? : string) {
+        this.street = street || "";
+        this.house = house || "";
+        this.district = district || "";
+        this.province = province || "";
+        this.country = country || "";
+        this.formatted = formatted || "";
+        this.cords = cords || [];
+    }
+    createYMapsAddress(street: string, house: string, district: string, province:string , country: string, cords: string[], formatted:string) : void {
 
-    if (cords.length <= 1){
-        console.log("formating cords...")
+        if (cords.length <= 1){
+            const cordsNumber : string = cords[0]
+            cords = cordsNumber.split(' ').reverse()
+        }
 
-        const cordsNumber : string = cords[0]
-        console.log("cordsNumber",cordsNumber)
+        this.street= street
+        this.house= house
+        this.district= district
+        this.province= province
+        this.country= country
+        this.formatted= formatted
+        this.cords= cords
+    }
+    async createYMapsAddressUsingCords(cords: string[]) {
+        try {
+            if (cords && typeof cords != "undefined") {
+                const res = await fetch(`/api/YMaps`, {
+                    method: "POST",
+                    body: JSON.stringify({ addressToSearch: cords.reverse().join(',')}),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                const data = await res.json();
+                if (data.collectionFromSearchStatus == 200){
+                    const responseFromYmapAPI = data.collectionFromSearch.response
+                    const AddressFromCoords = responseFromYmapAPI.GeoObjectCollection.featureMember[0]
+                    let street = ""
+                    let house = ""
+                    let district = ""
+                    let province = ""
+                    let country = ""
+                    let formatted: string
+                    AddressFromCoords.GeoObject.metaDataProperty.GeocoderMetaData.Address.Components.forEach((parts:any) => {
+                            switch (parts.kind) {
+                                case 'country':
+                                    country = parts.name;
+                                    break;
+                                case 'province':
+                                    province = parts.name;
+                                    break;
+                                case 'district':
+                                    district = parts.name;
+                                    break;
+                                case 'street':
+                                    street = parts.name;
+                                    break;
+                                case "house":
+                                    house = parts.name
+                                    break;
+                                default:
+                                    break;
+                            }});
+                    let cords
+                    cords = [AddressFromCoords.GeoObject.Point.pos]
+                    console.log("new cords=", cords )
+                    formatted = `${AddressFromCoords.GeoObject.name}, ${AddressFromCoords.GeoObject.description}`
 
-        const latitude = parseFloat(cordsNumber[1]);
-        const longitude = parseFloat(cordsNumber[0]);
+                    const YmapsAddressObject : YmapsAddressClass = new YmapsAddressClass(cords, street, house, district,province,country,formatted)
+                    YmapsAddressObject.consoleLog()
+                    return YmapsAddressObject
+                } else {
+                    console.log("Error when calling API")
+                }
 
 
-        console.log("latitude:", latitude)
-        console.log("longitude:", longitude)
-        cords = cordsNumber.split(' ').reverse()
-        console.log("cords:",cords)
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
-    return {
-        street: street,
-        house: house,
-        district: district,
-        province: province,
-        country: country,
-        formatted: formatted,
-        cords: cords,
+    consoleLog(){
+        console.log("Runing consoleLog Method:")
+        console.log("street:", this.street)
+        console.log("house:", this.house)
+        console.log("district:", this.district)
+        console.log("province:", this.province)
+        console.log("country:", this.country)
+        console.log("formatted:", this.formatted)
+        console.log("cords:", this.cords)
     }
 }
+
+export class CollectionOfYMapsAddresses{
+    collection : YmapsAddressClass[] = [];
+    async getCollectionBasedOnString(addressToSearch : string) {
+        try {
+            if (addressToSearch) {
+                const res = await fetch(`/api/YMaps`, {
+                    method: "POST",
+                    body: JSON.stringify({ addressToSearch: addressToSearch }),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                const data = await res.json();
+
+                if (data.collectionFromSearchStatus == 200){
+                    const responseFromYmapAPI = data.collectionFromSearch.response
+                    const collectionYmapAddreses : YmapsAddressClass[] = []
+                    console.log("responseFromYmapAPI=",responseFromYmapAPI)
+                    const collectionOfAddresses = responseFromYmapAPI.GeoObjectCollection.featureMember.map(
+                        (item:any) => item.GeoObject
+                    );
+                    collectionOfAddresses.map((iteam:any) => {
+
+                        let street = ""
+                        let house = ""
+                        let district = ""
+                        let province = ""
+                        let country = ""
+                        let formatted: string
+                        iteam.metaDataProperty.GeocoderMetaData.Address.Components.forEach((parts:any) => {
+                            switch (parts.kind) {
+                                case 'country':
+                                    country = parts.name;
+                                    break;
+                                case 'province':
+                                    province = parts.name;
+                                    break;
+                                case 'district':
+                                    district = parts.name;
+                                    break;
+                                case 'street':
+                                    street = parts.name;
+                                    break;
+                                case "house":
+                                    house = parts.name
+                                    break;
+                                default:
+                                    break;
+                            }
+                        });
+
+                        let cords
+                        cords = [iteam.Point.pos]
+                        formatted = `${iteam.name}, ${iteam.description}`
+
+                        const YmapsAddressObject : YmapsAddressClass = new YmapsAddressClass(cords, street, house, district,province,country,formatted)
+                        collectionYmapAddreses.push(YmapsAddressObject)
+
+                    })
+                    return collectionYmapAddreses
+                } else {
+                    console.log("Error when calling API")
+                }
+
+
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    consoleLog(){
+        console.log("Returning items of collection...")
+        this.collection.map((i) => {
+            console.log(i)
+        })
+    }
+}
+

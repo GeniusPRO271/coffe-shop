@@ -7,7 +7,6 @@ import { RootState } from '@/redux/store/store'
 import { addItem, changeDelivery, clearCart, removeItem, selectCartProducts } from '@/redux/features/cart/cartSlice'
 import PlusIcon from "@/assets/icons/PlusIcon2.svg"
 import MinusIcon from "@/assets/icons/MinusIcon2.svg"
-import CartNotEmptySeparator from "@/assets/icons/cartNotEmpySeparator.svg"
 import CarryOut from "@/assets/icons/CarryoutIcon.svg"
 import DeliveryIcon from "@/assets/icons/DeliveryIcon.svg"
 import { useRouter } from 'next/navigation'

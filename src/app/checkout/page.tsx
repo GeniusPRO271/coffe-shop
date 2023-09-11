@@ -24,7 +24,7 @@ import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import PopOut from '@/components/popUp'
 import AutoComplete from '@/components/autoComplete'
 import { addAddress, changeActiveAddress, selectActiveAddress, selectAddreses } from '@/redux/features/user/userSlice'
-import { YmapsAddress, YmapsAddress_init, createYMapsAddress } from '@/types/ymaps'
+import {CollectionOfYMapsAddresses, YmapsAddressClass} from "@/types/ymaps";
 function Checkout() {
     const dispatch = useDispatch()
     const [deliveryOpt, setDeliveryOpt] = useState<number>(0)
@@ -53,14 +53,11 @@ function Checkout() {
         await new Promise(resolve => setTimeout(resolve, 0));
         action()
     }
-    
+
     const handleScroll = () => {
         closeAllPopUps()
         };
 
-    useEffect(() => {
-
-    },[cartItems.items])
     useEffect(() =>{
         window.addEventListener('scroll', handleScroll);
 
@@ -224,9 +221,6 @@ function Checkout() {
     )
 }
 
-
-
-
 function ProductIteam({width,height,src,title,amount,price, d}:{width:number, height:number, src:any,title:string, amount:number, price:number, d:Product}){
     const dispatch = useDispatch()
     return(
@@ -259,74 +253,26 @@ function NewAdressComponent({SetNewAddressOpen } :  {SetNewAddressOpen: React.Di
 
 
     const [newAddressInput, setNewAddressInput] = useState<string>("")
-    const [addressClicked, setAddressClicked] = useState<YmapsAddress>(YmapsAddress_init)
-    const [address, setAddress] = useState<YmapsAddress[]>([])
+    const [addressClicked, setAddressClicked] = useState<YmapsAddressClass>(new YmapsAddressClass())
+    const [address, setAddress] = useState<YmapsAddressClass[]>([])
 
-    const [cords, setCords] = useState<number[]>([56.484645, 84.947649])
+    const [cords, setCords] = useState<number[]>([84.947649, 56.484645])
     const dispatch = useDispatch()
 
     const [popUp, setPopUp] = useState<boolean>(false)
-    const API_KEY = "433b162f-8c44-4a17-9edf-495b7f7ca5ac"
+
 
     useEffect(() => {
-        (async () => {
-          try {
-            if (newAddressInput) {
-              const res = await fetch(
-                `https://geocode-maps.yandex.ru/1.x/?apikey=${API_KEY}&format=json&lang=en_RU&geocode=${newAddressInput}`
-              );
-              const data = await res.json();
-              const collectionYmapAddreses : YmapsAddress[] = []
-              const collectionOfAddresses = data.response.GeoObjectCollection.featureMember.map(
-                (item:any) => item.GeoObject
-              );
-              collectionOfAddresses.map((iteam:any) => {
-
-                let street = ""
-                let house = ""
-                let district = ""
-                let province = ""
-                let country = ""
-                let formatted: string
-                  console.log(iteam)
-                iteam.metaDataProperty.GeocoderMetaData.Address.Components.forEach((parts:any) => {
-                    switch (parts.kind) {
-                      case 'country':
-                        country = parts.name;
-                        break;
-                      case 'province':
-                        province = parts.name;
-                        break;
-                      case 'district':
-                        district = parts.name;
-                        break;
-                      case 'street':
-                        street = parts.name;
-                        break;
-                      case "house":
-                          house = parts.name
-                          break;
-                      default:
-                            break;
-                    }
-                  });
-
-                let cords
-                cords = [iteam.Point.pos]
-                console.log(cords)
-                formatted = `${iteam.name}, ${iteam.description}`
-
-
-                const YmapsAddressObject : YmapsAddress = createYMapsAddress({street, house, district,province,country,formatted: formatted,cords})
-                collectionYmapAddreses.push(YmapsAddressObject)
-              })
-
-              setAddress(collectionYmapAddreses)
+        const getCollection = new CollectionOfYMapsAddresses()
+        getCollection.getCollectionBasedOnString(newAddressInput).then( result => {
+                if(typeof result != "undefined") {
+                    console.log("assigning collection", result)
+                    setAddress(result)
+                } else{
+                    console.log("response at useEffect undefined")
+                }
             }
-          } catch (e) {
-            console.log(e);
-          }
-        })();
+        )
       }, [newAddressInput]);
 
     return(
@@ -363,7 +309,7 @@ function NewAdressComponent({SetNewAddressOpen } :  {SetNewAddressOpen: React.Di
                             popUp={popUp}
                             setPopUp={setPopUp}
                             />
-                        <Image src={Xicon} alt='Xicon' width={24} height={24} onClick={() => {setNewAddressInput(""); setAddressClicked(YmapsAddress_init)}} style={{cursor: "pointer"}}/>
+                        <Image src={Xicon} alt='Xicon' width={24} height={24} onClick={() => {setNewAddressInput(""); setAddressClicked(new YmapsAddressClass())}} style={{cursor: "pointer"}}/>
 
                     </div>
                     {addressClicked.cords.length > 1 && addressClicked.formatted === newAddressInput && addressClicked.house != undefined
@@ -379,16 +325,18 @@ function NewAdressComponent({SetNewAddressOpen } :  {SetNewAddressOpen: React.Di
 
             </div>
             <div className={styles.NewAdressComponentMapsContainer}>
-                <MapsCompnent API_KEY={API_KEY} Cords={cords} setCords={setCords} setNewAddressInput={setNewAddressInput} setAddressClicked={setAddressClicked}/>
+                <MapsCompnent Cords={cords} setCords={setCords} setNewAddressInput={setNewAddressInput} setAddressClicked={setAddressClicked}/>
             </div>
         </div>
     )
 }
 
-function MapsCompnent({API_KEY, Cords, setCords, setNewAddressInput, setAddressClicked}:{API_KEY:string, Cords:number[], setCords: React.Dispatch<React.SetStateAction<any[]>>, setNewAddressInput: React.Dispatch<React.SetStateAction<string>>, setAddressClicked: React.Dispatch<React.SetStateAction<YmapsAddress>>}) {
+
+function MapsCompnent({Cords, setCords, setNewAddressInput, setAddressClicked}:{Cords:number[], setCords: React.Dispatch<React.SetStateAction<any[]>>, setNewAddressInput: React.Dispatch<React.SetStateAction<string>>, setAddressClicked: React.Dispatch<React.SetStateAction<YmapsAddressClass>>}) {
+
     const defaultState = {
-      center: Cords,
-      zoom: 17,
+        center: Cords,
+        zoom: 17,
     };
     const ymaps = useRef<any>(null)
     const placeMarkRef = useRef<any>()
@@ -397,40 +345,28 @@ function MapsCompnent({API_KEY, Cords, setCords, setNewAddressInput, setAddressC
     return (
       <YMaps
       query={
-        {lang: "en_RU",
-        load:"geocode",
-        apikey: API_KEY}
+        {   lang: "en_RU",
+            load:"geocode",
+        }
       }
       >
         <Map
             defaultState={defaultState}
-            state={{center: Cords, zoom: 17}}
+            state={{center: Cords.reverse(), zoom: 17}}
             style={{width:"100%",height:"100%", borderRadius:"16px"}}
             instanceRef={mapRef}
             onLoad={(e) => {
                 ymaps.current = e;
               }}
               onClick={(event:any) => {
-                const coords = event.get("coords");
-                setCords(() => coords);
-
-                ymaps.current.geocode(coords).then((res:any) => {
-                    const firstGeoObject = res.geoObjects.get(0);
-
-                    let street = firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
-                    let house = firstGeoObject.getPremiseNumber()
-                    let province = firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas()
-                    let country = firstGeoObject.getCountry();
-                    console.log("clicked")
-                    console.log("street:",street)
-                    console.log("house:",house)
-                    console.log("province:",province)
-                    console.log("country:",country)
-                    let formated = `${street != undefined && street != "" ? street + "," : ""} ${house !== undefined && house != "" ? house + "," : ""} ${province != undefined && province != "" ? province + "," : ""} ${country != undefined && country != "" ? country: ""}`
-                    setNewAddressInput(formated)
-                    const newYmapsAddress = createYMapsAddress({street, house, province, country, cords : coords, formatted: formated})
-                    setAddressClicked(newYmapsAddress)
-                  });
+                  const coords = event.get("coords");
+                  setCords(() => coords);
+                  new YmapsAddressClass().createYMapsAddressUsingCords(coords).then((res) => {
+                      if(typeof res != "undefined"){
+                          setAddressClicked(res)
+                          setNewAddressInput(res.formatted)
+                      }
+                  })
               }}
 
 
@@ -442,20 +378,14 @@ function MapsCompnent({API_KEY, Cords, setCords, setNewAddressInput, setAddressC
           }}
 
           onDragEnd={() => {
-            const coords = placeMarkRef.current.geometry._coordinates;
-            setCords(() => coords)
-            ymaps.current.geocode(coords).then((res:any) => {
-                const firstGeoObject = res.geoObjects.get(0);
-
-                let street = firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
-                let house = firstGeoObject.getPremiseNumber()
-                let province = firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas()
-                let country = firstGeoObject.getCountry();
-                let formatted = `${street != undefined && street != "" ? street + "," : ""} ${house != undefined && house != "" ? house + "," : ""} ${province != undefined && province != "" ? province + "," : ""} ${country != undefined && country != "" ? country: ""}`
-                setNewAddressInput(formatted)
-                const newYmapsAddress = createYMapsAddress({street, house, province, country, cords : coords, formatted: formatted})
-                setAddressClicked(newYmapsAddress)
-              });
+              const coords = placeMarkRef.current.geometry._coordinates;
+              setCords(() => coords)
+              new YmapsAddressClass().createYMapsAddressUsingCords(coords).then((res) => {
+                  if(typeof res != "undefined"){
+                      setAddressClicked(res)
+                      setNewAddressInput(res.formatted)
+                  }
+              })
           }}
           geometry={Cords}/>
         </Map>

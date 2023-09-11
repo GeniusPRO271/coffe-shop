@@ -1,5 +1,3 @@
-"use client"
-
 import Image from 'next/image'
 import styles from "./page.module.css"
 import BannerImage from "@/assets/bannerimage.png"
@@ -10,6 +8,7 @@ import SpearatorButton from "@/assets/SpearatorButton.svg"
 import CarryourIcon from "@/assets/icons/CarryOutIcon2.svg"
 import SpearatorButton1 from "@/assets/SpearatorButton1.svg"
 import Link from 'next/link'
+
 
 
 export default function Home() {
@@ -24,7 +23,8 @@ export default function Home() {
                 <div className={styles.bannerImageContainer}>
                   <div className={styles.bannerTextContainer}>
                     <span className={styles.bannerText}>
-                      ¡DESCUBRE UN OASIS DEL CAFÉ: 
+                      ¡DESCUBRE UN OASIS DEL CAFÉ:
+
                       ¡<span style={{color: "#1EE3E4"}}>VEN A VISITARNOS</span>!
                     </span>
                   </div>
