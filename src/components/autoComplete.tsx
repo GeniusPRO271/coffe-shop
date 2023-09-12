@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import PopOut from './popUp'
 import { motion } from 'framer-motion'; 
 import styles from "@/app/checkout/page.module.css"
@@ -41,12 +41,12 @@ function AutoComplete({id, placeholder, valueInput, collection, onChange, classN
                         className={styles.autoCompleteCollectionIteam}
                         onClick={() => 
                         {
-                            changeCords(() => address.cords)
+                            changeCords(() => address.formatCoordsAsTwoStringInAnArray())
                             changeValue(address.formatted)
                             setAddressClicked(address)
                             setPopUp(false)
                             setCollection([])
-
+                            address.consoleLog()
                         }
                         }
                         

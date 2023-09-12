@@ -1,5 +1,3 @@
-import {Console} from "inspector";
-
 export class YmapsAddressClass {
     street?: string;
     house?: string;
@@ -90,6 +88,40 @@ export class YmapsAddressClass {
         } catch (e) {
             console.log(e);
         }
+    }
+
+    formatCoordsAsTwoStringInAnArray(){
+        try {
+            return this.cords[0].split(" ")
+        } catch (e){
+            console.log(e)
+            console.log("Error at formatting")
+            return []
+        }
+
+    }
+    validateAddressBasedOnUserInput(UserInput : string) : boolean{
+        if (this.formatCoordsAsTwoStringInAnArray().length > 1 &&
+            this.formatted === UserInput &&
+            this.house != undefined &&
+            this.house.trim() !== ""
+            ){
+            console.log("Valid address: ")
+            this.consoleLog()
+            return true
+        } else {
+            console.log("Invalid address: false")
+            return false
+        }
+    }
+
+    validateAddressForReduxDispatch() : boolean{
+        return this.street !== undefined && this.street.trim() !== "";
+
+    }
+
+    formattedShortVersion() : string{
+        return `${this.street}, ${this.house} `
     }
 
     consoleLog(){

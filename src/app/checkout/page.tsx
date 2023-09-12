@@ -91,7 +91,7 @@ function Checkout() {
                                         {addreses.length > 0 ?
                                             <button id="addresButton" className={styles.checkOutLeftColumnAddressButton} onClick={() => {SetAddresIsOpen(addresIsOpen => !addresIsOpen); SetPopUpIsOpen(popUpIsOpen => !popUpIsOpen)}}>
                                                     <Image src={HouseIcon} alt='HouseIcon' width={18} height={18} style={{marginRight: "6px"}}/>
-                                                        {activeAdress}
+                                                        {activeAdress.formattedShortVersion()}
                                                     <motion.div
                                                     className={styles.checkOutLeftColumnAddressButtonArrow}
                                                     animate={addresIsOpen ? {rotate: 180} : {rotate: 0}}
@@ -192,10 +192,10 @@ function Checkout() {
                             Agregar nueva direccion
                             <Image src={PlusIcon} alt='PlusIcon' width={18} height={18} style={{marginLeft: "12px"}}/>
                         </button>
-                        {addreses && addreses.length > 0 && addreses.map((iteam: string, index: number) => {
+                        {addreses && addreses.length > 0 && addreses.map((iteam: YmapsAddressClass, index: number) => {
                             return(
                                 <button className={styles.checkOutLeftColumnAddressButtonPopUpAddresNew} style={ (addreses.length - 1) ===  index ? {borderRadius: "0px", borderBottomLeftRadius: "24px", borderBottomRightRadius: "24px"} : {borderRadius: "0px"} } onClick={() => {dispatch(changeActiveAddress(iteam))}}>
-                                    {iteam}
+                                    {iteam.formatted}
                                     {iteam === activeAdress && <Image src={CheckIcon} alt='CheckIcon' width={18} height={18} style={{marginLeft: "12px"}}/>}
                                 </button>
                             )
@@ -312,14 +312,9 @@ function NewAdressComponent({SetNewAddressOpen } :  {SetNewAddressOpen: React.Di
                         <Image src={Xicon} alt='Xicon' width={24} height={24} onClick={() => {setNewAddressInput(""); setAddressClicked(new YmapsAddressClass())}} style={{cursor: "pointer"}}/>
 
                     </div>
-                    {addressClicked.cords.length > 1 && addressClicked.formatted === newAddressInput && addressClicked.house != undefined
-                    ? <button onClick={() => {dispatch(addAddress(`${addressClicked.street != undefined && addressClicked.street != "" ? addressClicked.street + "," : ""} ${addressClicked.house != undefined && addressClicked.house != "" ? addressClicked.house : ""}`)); SetNewAddressOpen(false)}} className={styles.NewAdressComponentSearchBarButton} >
+                    <button onClick={() => {addressClicked.consoleLog() dispatch(addAddress(addressClicked)); SetNewAddressOpen(false)}} className={styles.NewAdressComponentSearchBarButton} style={ addressClicked.validateAddressBasedOnUserInput(newAddressInput) ? {} : {backgroundColor: "rgba(92, 90, 87, 0.10)", color: "#9E9B98", cursor: "default"}} disabled={!addressClicked.validateAddressBasedOnUserInput(newAddressInput)}>
                         OK
                     </button>
-                        :
-                    <button className={styles.NewAdressComponentSearchBarButton} style={{backgroundColor: "rgba(92, 90, 87, 0.10)", color: "#9E9B98", cursor: "default"}}>
-                        OK
-                    </button>}
 
                 </div>
 
