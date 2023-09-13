@@ -312,7 +312,7 @@ function NewAdressComponent({SetNewAddressOpen } :  {SetNewAddressOpen: React.Di
                         <Image src={Xicon} alt='Xicon' width={24} height={24} onClick={() => {setNewAddressInput(""); setAddressClicked(new YmapsAddressClass())}} style={{cursor: "pointer"}}/>
 
                     </div>
-                    <button onClick={() => {addressClicked.consoleLog() dispatch(addAddress(addressClicked)); SetNewAddressOpen(false)}} className={styles.NewAdressComponentSearchBarButton} style={ addressClicked.validateAddressBasedOnUserInput(newAddressInput) ? {} : {backgroundColor: "rgba(92, 90, 87, 0.10)", color: "#9E9B98", cursor: "default"}} disabled={!addressClicked.validateAddressBasedOnUserInput(newAddressInput)}>
+                    <button onClick={() => {addressClicked.consoleLog(); dispatch(addAddress(addressClicked)); SetNewAddressOpen(false)}} className={styles.NewAdressComponentSearchBarButton} style={ addressClicked.validateAddressBasedOnUserInput(newAddressInput) ? {} : {backgroundColor: "rgba(92, 90, 87, 0.10)", color: "#9E9B98", cursor: "default"}} disabled={!addressClicked.validateAddressBasedOnUserInput(newAddressInput)}>
                         OK
                     </button>
 

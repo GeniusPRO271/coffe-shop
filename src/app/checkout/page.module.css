@@ -247,9 +247,26 @@
     width: 100%;
 }
 
+.checkOutLeftColumnTimeDeliveryOptions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 0;
+    color: #313638;
+    font-family: "Product Sans", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: -5px;
+    padding: 5px 5px;
+    border-radius: 10px;
+}
 .checkOutLeftColumnTimeDeliveryOptions:hover{
     background-color: rgba(92, 90, 87, 0.10);
 }
+
 .checkOutLeftColumnCart{
     padding-top: 21px;
     width: 100%;
